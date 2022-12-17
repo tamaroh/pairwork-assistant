@@ -7,15 +7,23 @@ const getIndexAtRandom = (list) => {
 const createPair = (list) => {
     const pairs = [];
     const tempList = [...list];
-    tempList.forEach((element, index) => {
-        const pair = [element];
-        tempList.splice(index, 1);
-        pair.push(getIndexAtRandom(tempList));
+    while (tempList.length > 1) {
+        const pair = [tempList[0]];
+        console.log(pair)
+        tempList.splice(0, 1);
+        const randomedIndex = getIndexAtRandom(tempList);
+        pair.push(tempList[randomedIndex]);
+        tempList.splice(randomedIndex,1)
         pairs.push(pair);
-    });
+        console.log(tempList.length)
+    }
+    if (tempList.length === 1) {
+        pairs[0].push(tempList[0])
+    }
+    return pairs;
 }
 setStudentsButton.addEventListener("click", () => {
     const students = document.getElementsByTagName("textarea")[0].value.split("\n");
-    displayArea.append(students);
-    console.log("created pairs:", createPair(students));
+    const createdPairs = createPair(students);
+    displayArea.append(JSON.stringify(createdPairs));
 })
