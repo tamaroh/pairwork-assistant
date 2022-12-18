@@ -30,9 +30,7 @@ const createPair = (list) => {
 const createUnpairedMap = (setOfStudents) => {
     for (const student1 of setOfStudents) {
             unpairedMap.set(student1, new Set());
-            console.log(unpairedMap)
         for (const student2 of setOfStudents) {
-            console.log(unpairedMap.get(student1))
             unpairedMap.get(student1).add(student2)
         }
     }
@@ -42,16 +40,26 @@ const showHistory = () => {
     displayArea.innerHTML = "";
     const historyElement = document.createElement("div");
     history.forEach((element, index) => {
-        historyElement.innerHTML += `<h2>Day ${index + 1}</h2>`;
+        historyElement.innerHTML = `<h2>Day ${index + 1}</h2>`;
         historyElement.append(JSON.stringify(element));
     });
     displayArea.append(historyElement);
 }
-
+const showStudents = () => {
+    const area = document.getElementById("students");
+    const listElement = document.createElement("ul");
+    for (const student of students) {
+        const studentElement = document.createElement("li");
+        studentElement.innerHTML = student;
+        listElement.append(studentElement);
+    }
+    area.append(listElement)
+}
 setStudentsButton.addEventListener("click", () => {
     students = new Set(document.getElementsByTagName("textarea")[0].value.split("\n"));
     students.delete("");
     createUnpairedMap(students);
+    showStudents();
 })
 
 createdPairButton.addEventListener("click", () => {
