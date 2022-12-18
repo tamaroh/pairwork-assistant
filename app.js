@@ -7,9 +7,8 @@ const getIndexAtRandom = (list) => {
 }
 const createPair = (list) => {
     const pairs = [];
-    const tempSet = new Set(list);
-    tempSet.delete("");
-    const tempList = Array.from(tempSet);
+    list.delete("");
+    const tempList = Array.from(list);
     while (tempList.length > 1) {
         const pair = [tempList[0]];
         tempList.splice(0, 1);
@@ -35,7 +34,7 @@ const showHistory = () => {
 }
 
 setStudentsButton.addEventListener("click", () => {
-    const students = document.getElementsByTagName("textarea")[0].value.split("\n");
+    const students = new Set(document.getElementsByTagName("textarea")[0].value.split("\n"));
     const createdPairs = createPair(students);
     history.push(createdPairs);
     showHistory();
