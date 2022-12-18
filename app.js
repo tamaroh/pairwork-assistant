@@ -7,7 +7,9 @@ const getIndexAtRandom = (list) => {
 }
 const createPair = (list) => {
     const pairs = [];
-    const tempList = [...list];
+    const tempSet = new Set(list);
+    tempSet.delete("");
+    const tempList = Array.from(tempSet);
     while (tempList.length > 1) {
         const pair = [tempList[0]];
         tempList.splice(0, 1);
